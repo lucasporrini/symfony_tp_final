@@ -1,0 +1,26 @@
+header {
+    background-color: gainsboro;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+header nav ul{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+}
+
+header nav ul li{
+    padding: 0 10px;
+}
+
+header a{
+    text-decoration: none;
+    color: black;
+}
