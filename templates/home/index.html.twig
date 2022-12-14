@@ -5,16 +5,18 @@
 {% block main %}
 <div class="example-wrapper">
     <h2>Voici les différentes annonces</h2>
-    {{ dump(annonces) }}
     <ul>
         {% for annonce in annonces %}
             <li>
                 <h3>{{ annonce.title }}</h3>
-                <p>{{ annonce.description }}</p>
                 <p>{{ annonce.price }} €</p>
-                <p>{{ annonce.created_at }}</p>
-                <p>{{ annonce.updated_at }}</p>
+                {# <h4>Description</h4> #}
+                <p>{{ annonce.description }}</p>
                 <p>{{ annonce.cat_title }}</p>
+                <p>{{ annonce.created_at }}</p>
+                {% if annonce.updated_at %}
+                    <p>{{ annonce.updated_at }}</p>
+                {% endif %}
             </li>
         {% endfor %}
 </div>

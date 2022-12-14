@@ -31,7 +31,7 @@ class AnnonceController extends AbstractController
             $entityManager->flush();
             $this->addFlash(
                 'notice',
-                'User saved !'
+                'L\'annonce a bien été postée !'
             );
             return $this->redirectToRoute('annonce_page', [
                 'form' => $form
