@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block main %}
+<div>
+    <h1>Bienvenue {{ user[0].email }} sur votre page de profil</h1>
+    <ul>
+        <li>
+            Email : {{ user[0].email }}
+        </li>
+        <li>
+            Compte crée le : {{ user[0].created_at }}
+        </li>
+         <li>
+            Dernière mise à jour le : {{ user[0].created_at }}
+        </li>
+</div>
+{% endblock %}

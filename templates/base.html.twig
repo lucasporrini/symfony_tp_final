@@ -30,7 +30,7 @@
                                 <a href="{{ path('app_logout') }}">Se déconnecter</a>
                             </li>
                             <li>
-                                 <p>{{ app.user.username }} (connecté)</p>
+                                <a href="{{ path('app_profile', {id: app.user.id}) }}">{{ app.user.username }} (connecté)</a>
                             </li>
                         {% else %}
                             <li>

@@ -70,12 +70,28 @@ class AnnonceRepository extends ServiceEntityRepository
         return $finalResult;
     }
 
+    public function verifyUser(int $id)
+    {
+        // avec les requetes SQL
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql= 'SELECT user.id FROM annonce
+        LEFT JOIN user ON annonce.user_id = user.id
+        WHERE annonce.id=:id';
+
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['id'=>$id]);
+        $finalResult = $resultSet->fetchAllAssociative();
+        
+        return $finalResult;
+    }
+
     public function supprimer(int $id)
     {
         // avec les requetes SQL
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql= 'DELETE * FROM `annonce`
+        $sql= 'DELETE FROM annonce
         WHERE annonce.id=:id';
 
         $stmt = $conn->prepare($sql);

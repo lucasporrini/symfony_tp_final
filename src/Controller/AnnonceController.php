@@ -99,12 +99,13 @@ class AnnonceController extends AbstractController
     #[Route('/annonce/supprimer/{id?}', name: 'supprimer_annonce')]
     public function supprimerAnnonce(ManagerRegistry $doctrine,Request $request, int $id): Response{
         $entityManager = $doctrine->getManager();
+        $user = $entityManager->getRepository(Annonce::class)->find($id);
         $annonce = $entityManager->getRepository(Annonce::class)->supprimer($id);
         
-        if($annonce->getUser() != $this->getUser()){
+        if($user->getUser()->getId() != $this->getUser()){
             return $this->redirectToRoute('home_page');
         }
-        
+
         $form=$this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
 
