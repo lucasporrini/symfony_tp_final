@@ -59,11 +59,61 @@ class AnnonceRepository extends ServiceEntityRepository
         // avec les requetes SQL
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql= 'SELECT * FROM annonce a
-            JOIN categorie c ON a.categorie_id = c.id';
+        $sql= 'SELECT annonce.id, annonce.title, annonce.description, annonce.price, annonce.created_at, annonce.updated_at, categorie.cat_title, user.email FROM `annonce`
+        LEFT JOIN categorie ON annonce.categorie_id =categorie.id
+        LEFT JOIN user ON annonce.user_id =user.id';
 
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery();
+        $finalResult = $resultSet->fetchAllAssociative();
+        
+        return $finalResult;
+    }
+
+    public function supprimer(int $id)
+    {
+        // avec les requetes SQL
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql= 'DELETE * FROM `annonce`
+        WHERE annonce.id=:id';
+
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['id'=>$id]);
+        $finalResult = $resultSet->fetchAllAssociative();
+        
+        return $finalResult;
+    }
+
+    public function annonceWithId(int $id)
+    {
+        // avec les requetes SQL
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql= 'SELECT * FROM annonce a
+            LEFT JOIN user u ON a.user_id = u.id
+            LEFT JOIN categorie c ON a.categorie_id = c.id
+            WHERE a.id=:id';
+
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['id'=>$id]);
+        $finalResult = $resultSet->fetchAllAssociative();
+        
+        return $finalResult;
+    }
+
+    public function annonceOfUser(int $id)
+    {
+        // avec les requetes SQL
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql= 'SELECT annonce.id, annonce.title, annonce.description, annonce.price, annonce.created_at, annonce.updated_at, categorie.cat_title, user.email FROM annonce
+            LEFT JOIN user ON annonce.user_id = user.id
+            LEFT JOIN categorie ON annonce.categorie_id = categorie.id
+            WHERE user.id=:id';
+
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['id'=>$id]);
         $finalResult = $resultSet->fetchAllAssociative();
         
         return $finalResult;

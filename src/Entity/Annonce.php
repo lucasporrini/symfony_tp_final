@@ -32,6 +32,9 @@ class Annonce
     #[ORM\ManyToOne(inversedBy: 'Annonce')]
     private ?Categorie $categorie = null;
 
+    #[ORM\ManyToOne(inversedBy: 'annonce_id')]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +108,18 @@ class Annonce
     public function setCategorie(?Categorie $categorie): self
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

@@ -1,3 +1,5 @@
+/* HEADER */
+
 header {
     background-color: gainsboro;
 }
@@ -23,4 +25,8 @@ header nav ul li{
 header a{
     text-decoration: none;
     color: black;
+}
+
+.header_logo{
+    width: 90px;
 }

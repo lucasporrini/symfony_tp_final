@@ -15,7 +15,10 @@ class AppFixtures extends Fixture
             $annonce->setTitle('Ceci est le titre de ma '.($i+1).'ème annonce ');
             $annonce->setDescription('Ceci est la description de ma '.($i+1).'ème annonce');
             $annonce->setPrice(mt_rand(10, 100));
-            $annonce->setCreatedAd(new \DateTime());
+            $annonce->setCreatedAt(new \DateTime());
+            $annonce->setUpdatedAt(new \DateTime());
+            // $annonce->setUser($this->getReference('user'));
+            // $annonce->setCategorie($this->getReference('categorie'));
             $manager->persist($annonce);
         }
         $manager->flush();

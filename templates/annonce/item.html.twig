@@ -4,13 +4,7 @@
 
 {% block main %}
     <h1>Page Annonce</h2>
-    {% for a in annonce %}
-        <h2>{{ a.title }}</h2>
-        <p>{{ a.description }}</p>
-        <p>{{ a.price }}</p>
-        {# <p>{{ a.date }}</p>
-        <p>{{ a.photo }}</p>
-        <p>{{ a.categorie }}</p>
-        <p>{{ a.user }}</p> #}
-    {% endfor %}
+        <h2>{{ annonce.title }}</h2>
+        <p>{{ annonce.description }}</p>
+        <p>{{ annonce.price }}</p>
 {% endblock %}

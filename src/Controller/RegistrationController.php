@@ -29,6 +29,8 @@ class RegistrationController extends AbstractController
                     $form->get('password')->getData()
                 )
             );
+            $user->setCreatedAt(new \DateTime());
+            $user->setUpdatedAt(new \DateTime());
 
             $entityManager->persist($user);
             $entityManager->flush();

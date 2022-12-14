@@ -17,16 +17,16 @@ class AnnonceController extends AbstractController
     {
         $new_annonce = new Annonce;
         $entityManager = $doctrine->getManager();
-        // on fait la requete dans la fonction UtilisateursRepository
-        // $user = $entityManager->getRepository(Utilisateurs::class);
         $form=$this->createForm(AnnonceType::class, $new_annonce);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            $appUser = $this->getUser();
             $data=$form->getData();
             $new_annonce->setCreatedAt(new \DateTime());
             $new_annonce->setUpdatedAt(new \DateTime());
+            $new_annonce->setUser($appUser);
             $entityManager->persist($data);
             $entityManager->flush();
             $this->addFlash(
@@ -58,11 +58,85 @@ class AnnonceController extends AbstractController
     {
         $entityManager = $doctrine->getManager();
         // on fait la requete dans la fonction AnnonceRepository
-        $annonce = $entityManager->getRepository(Annonce::class)->getId($id);
+        $annonce = $entityManager->getRepository(Annonce::class)->find($id);
         
         return $this->render('annonce/item.html.twig', [
             'controller_name' => 'AnnonceController',
             'annonce' => $annonce
+        ]);
+    }
+
+    #[Route('/annonce/modifier/{id?}', name: 'modifier_annonce')]
+    public function modifierAnnonce(ManagerRegistry $doctrine,Request $request, int $id): Response{
+        $entityManager = $doctrine->getManager();
+        $annonce = $entityManager->getRepository(Annonce::class)->find($id);
+        
+        if($annonce->getUser() != $this->getUser()){
+            return $this->redirectToRoute('home_page');
+        }
+        
+        $form=$this->createForm(AnnonceType::class, $annonce);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $data=$form->getData();
+            $annonce->setUpdatedAt(new \DateTime());
+            $entityManager->persist($data);
+            $entityManager->flush();
+            $this->addFlash(
+                'notice',
+                'Changement sauvegardé !'
+            );
+            return $this->redirectToRoute('user_annonce', [
+                'id' => $this->getUser()->getId()
+            ]);
+        }
+        return $this->renderForm('annonce/modifier.html.twig',[
+            'form'=>$form
+        ]);
+    }
+
+    #[Route('/annonce/supprimer/{id?}', name: 'supprimer_annonce')]
+    public function supprimerAnnonce(ManagerRegistry $doctrine,Request $request, int $id): Response{
+        $entityManager = $doctrine->getManager();
+        $annonce = $entityManager->getRepository(Annonce::class)->supprimer($id);
+        
+        if($annonce->getUser() != $this->getUser()){
+            return $this->redirectToRoute('home_page');
+        }
+        
+        $form=$this->createForm(AnnonceType::class, $annonce);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $data=$form->getData();
+            $entityManager->persist($data);
+            $entityManager->flush();
+            $this->addFlash(
+                'notice',
+                'Changement sauvegardé !'
+            );
+            return $this->redirectToRoute('user_annonce', [
+                'id' => $this->getUser()->getId()
+            ]);
+        }
+        return $this->renderForm('annonce/modifier.html.twig',[
+            'form'=>$form
+        ]);
+    }
+
+    #[Route('/user/{id?}', name: 'user_annonce')]
+    public function annonceOfUser(ManagerRegistry $doctrine, int $id): Response
+    {
+        $entityManager = $doctrine->getManager();
+        // on fait la requete dans la fonction AnnonceRepository
+        $annonce = $entityManager->getRepository(Annonce::class)->annonceOfUser($id);
+
+
+        return $this->render('annonce/user.html.twig', [
+            'controller_name' => 'AnnonceController',
+            'annonce' => $annonce,
+            'user' => $this->getUser()
         ]);
     }
 }

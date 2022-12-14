@@ -17,14 +17,20 @@
         {% block header %}
             <header>
                 <nav>
-                    <a href="{{ path('home_page') }}">Leboncoin</a>
+                    <a href="{{ path('home_page') }}"><img class="header_logo" src="{{ asset('image/Leboncoin.png') }}"></a>
                     <ul>
                         <li>
-                            <a href="{{ path('deposer_annonce_page') }}">Déposer une annonce</a>
+                            <a href="{% if app.user%} {{ path('deposer_annonce_page') }} {% else %} {{ path('app_login') }} {% endif %} ">Déposer une annonce</a>
                         </li>
                         {% if app.user %}
                             <li>
+                                <a href="{{ path('user_annonce', {id: app.user.id}) }}">Mes annonces</a>
+                            </li>
+                            <li>
                                 <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                            </li>
+                            <li>
+                                 <p>{{ app.user.username }} (connecté)</p>
                             </li>
                         {% else %}
                             <li>
@@ -43,7 +49,7 @@
             </div>
         {% block footer %}
             <footer>
-                <p>© 2020 Leboncoin</p>
+                <p>© 2022 Leboncoin</p>
             </footer>
         {% endblock %}
   </body>

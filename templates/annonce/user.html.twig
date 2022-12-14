@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annonce de ...{% endblock %}
+
+{% block main %}
+    <h2>Mes annonces</h2>
+    {% for a in annonce %}
+        <h2>{{ a.title }}</h2>
+        <p>{{ a.description }}</p>
+        <p>{{ a.price }}</p>
+        {% if a.email == user.email %}
+            <a href="{{ path('modifier_annonce', {'id': a.id}) }}">Modifier l'annonce</a>
+            <a href="{{ path('supprimer_annonce', {'id': a.id}) }}">Supprimer l'annonce</a>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

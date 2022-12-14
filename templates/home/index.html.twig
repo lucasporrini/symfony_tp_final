@@ -13,10 +13,11 @@
                 {# <h4>Description</h4> #}
                 <p>{{ annonce.description }}</p>
                 <p>{{ annonce.cat_title }}</p>
-                <p>{{ annonce.created_at }}</p>
+                <p>Annoncé crée le {{ annonce.created_at }} par {{ annonce.email }}</p>
                 {% if annonce.updated_at %}
                     <p>{{ annonce.updated_at }}</p>
                 {% endif %}
+                <a href="{{ path('annonce_item', {'id': annonce.id}) }}">Voir l'annonce</a>
             </li>
         {% endfor %}
 </div>

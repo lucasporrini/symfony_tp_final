@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -35,6 +37,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Annonce::class)]
+    private Collection $annonce_id;
+
+    public function __construct()
+    {
+        $this->annonce_id = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -147,5 +157,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, Annonce>
+     */
+    public function getAnnonceId(): Collection
+    {
+        return $this->annonce_id;
+    }
+
+    public function addAnnonceId(Annonce $annonceId): self
+    {
+        if (!$this->annonce_id->contains($annonceId)) {
+            $this->annonce_id->add($annonceId);
+            $annonceId->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnnonceId(Annonce $annonceId): self
+    {
+        if ($this->annonce_id->removeElement($annonceId)) {
+            // set the owning side to null (unless already changed)
+            if ($annonceId->getUser() === $this) {
+                $annonceId->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

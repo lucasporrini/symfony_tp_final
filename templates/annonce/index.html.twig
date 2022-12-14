@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AnnonceController!{% endblock %}
+{% block title %}Page Annonce{% endblock %}
 
 {% block main %}
     <h1>Page Annonce</h2>
@@ -8,9 +8,6 @@
         <h2>{{ a.title }}</h2>
         <p>{{ a.description }}</p>
         <p>{{ a.price }}</p>
-        {# <p>{{ a.date }}</p>
-        <p>{{ a.photo }}</p>
-        <p>{{ a.categorie }}</p>
-        <p>{{ a.user }}</p> #}
+        <a href="{{ path('annonce_item', {'id': a.id}) }}">Voir l'annonce</a>
     {% endfor %}
 {% endblock %}
