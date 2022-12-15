@@ -14,6 +14,13 @@ class DefaultController extends AbstractController
 {
     //Page d'accueil
     #[Route('/home', name: 'home_page')]
+    public function racine(): Response
+    {
+        return $this->redirectToRoute('racine_page');
+    }
+    
+    //Redirection de la racine vers la page d'accueil
+    #[Route('/', name: 'racine_page')]
     public function home(ManagerRegistry $doctrine,Request $request): Response
     {
         $entityManager = $doctrine->getManager();
@@ -24,12 +31,5 @@ class DefaultController extends AbstractController
             'controller_name' => 'DefaultController',
             'annonces' => $annonces
         ]);
-    }
-
-    //Redirection de la racine vers la page d'accueil
-    #[Route('/', name: 'racine_page')]
-    public function racine(): Response
-    {
-        return $this->redirectToRoute('home_page');
     }
 }

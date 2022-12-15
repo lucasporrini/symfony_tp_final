@@ -58,11 +58,13 @@ class AnnonceController extends AbstractController
     {
         $entityManager = $doctrine->getManager();
         // on fait la requete dans la fonction AnnonceRepository
-        $annonce = $entityManager->getRepository(Annonce::class)->find($id);
+        $annonce = $entityManager->getRepository(Annonce::class)->annonceWithId($id);
+        $user = $this->getUser();
         
         return $this->render('annonce/item.html.twig', [
             'controller_name' => 'AnnonceController',
-            'annonce' => $annonce
+            'annonce' => $annonce,
+            'user' => $user
         ]);
     }
 
@@ -101,7 +103,7 @@ class AnnonceController extends AbstractController
         $entityManager = $doctrine->getManager();
         $user = $entityManager->getRepository(Annonce::class)->find($id);
         $annonce = $entityManager->getRepository(Annonce::class)->supprimer($id);
-        
+
         if($user->getUser()->getId() != $this->getUser()){
             return $this->redirectToRoute('home_page');
         }

@@ -4,7 +4,13 @@
 
 {% block main %}
     <h1>Page Annonce</h2>
-        <h2>{{ annonce.title }}</h2>
-        <p>{{ annonce.description }}</p>
-        <p>{{ annonce.price }}</p>
+        {% for a in annonce %}
+            <h2>{{ a.title }}</h2>
+            <p>{{ a.description }}</p>
+            <p>{{ a.price }}</p>
+            {% if a.email == user.email %}
+                <a href="{{ path('modifier_annonce', {'id': a.id}) }}">Modifier l'annonce</a>
+                <a href="{{ path('supprimer_annonce', {'id': a.id}) }}">Supprimer l'annonce</a>
+            {% endif %}
+        {% endfor %}
 {% endblock %}
