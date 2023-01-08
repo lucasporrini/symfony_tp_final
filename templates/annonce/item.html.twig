@@ -6,11 +6,16 @@
     <h1>Page Annonce</h2>
         {% for a in annonce %}
             <h2>{{ a.title }}</h2>
-            <p>{{ a.description }}</p>
-            <p>{{ a.price }}</p>
+            <p>Description : {{ a.description }}</p>
+            <p>Prix : {{ a.price }}€</p>
+            <p>Publié le : {{ a.created_at }}</p>
+            <p>Dernière mise à jour : {{ a.updated_at }}</p>
             {% if a.email == user.email %}
-                <a href="{{ path('modifier_annonce', {'id': a.id}) }}">Modifier l'annonce</a>
-                <a href="{{ path('supprimer_annonce', {'id': a.id}) }}">Supprimer l'annonce</a>
+                <p>Vous êtes le propriétaire de cette annonce.</p>
+                <div class="button_container">
+                    <a class="button_modifier" href="{{ path('modifier_annonce', {'id': a.id}) }}">Modifier l'annonce</a>
+                    <a class="button_supprimer" href="{{ path('supprimer_annonce', {'id': a.id}) }}">Supprimer l'annonce</a>
+                </div>
             {% endif %}
         {% endfor %}
 {% endblock %}

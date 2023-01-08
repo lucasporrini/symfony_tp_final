@@ -30,3 +30,98 @@ header a{
 .header_logo{
     width: 90px;
 }
+
+/* ANNONCE CONTAINER */
+
+.container h1{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.container ul {
+    list-style: none;
+}
+
+.container ul li{
+    width: 80vw;
+    margin: 0 auto;
+}
+
+.container a:hover{
+    cursor: pointer;
+}
+
+.annonce_container{
+    width: 70vw;
+    margin : 0 auto;
+    background-color: rgb(239, 239, 239);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px auto;
+    box-shadow: 0px 20px 40px rgba(0,0,0,0.2);
+    transition: all 0.5s;
+}
+
+.annonce_container:hover{
+    background-color: rgb(232, 231, 231);
+    box-shadow: 0px 30px 60px 0px rgba(0,0,0,0.4);
+}
+
+/* STYLE DES BOUTONS ------- BUTTON STYLE */
+
+.button_voir{
+    background-color: #4CAF50;
+    border: 1px solid #4CAF50;
+    color: white;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 12px;
+}
+
+.button_voir:hover{
+    background-color: transparent;
+    border: 1px solid #4CAF50;
+    color: #4CAF50;
+    cursor: pointer;
+}
+
+.button_modifier{
+    background-color: #f8c449;
+    border: 1px solid #f8c449;
+    color: white;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 12px;
+}
+
+.button_modifier:hover{
+    background-color: transparent;
+    border: 1px solid #f8c449;
+    color: #f8c449;
+    cursor: pointer;
+}
+
+.button_supprimer{
+    background-color: #ff0000;
+    border: 1px solid #ff0000;
+    color: white;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 12px;
+}
+
+.button_supprimer:hover{
+    background-color: transparent;
+    border: 1px solid #ff0000;
+    color: #ff0000;
+    cursor: pointer;
+}

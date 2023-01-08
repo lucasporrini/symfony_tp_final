@@ -5,9 +5,13 @@
 {% block main %}
     <h1>Page Annonce</h2>
     {% for a in annonce %}
-        <h2>{{ a.title }}</h2>
-        <p>{{ a.description }}</p>
-        <p>{{ a.price }}</p>
-        <a href="{{ path('annonce_item', {'id': a.id}) }}">Voir l'annonce</a>
+        <div class="annonce_container">
+            <h2>{{ a.title }}</h2>
+            <p>Description : {{ a.description }}</p>
+            <p>Prix : {{ a.price }}</p>
+            <div class="button_container">
+                <a class="button_voir" href="{{ path('annonce_item', {'id': a.id}) }}">Voir l'annonce</a>
+            </div>
+        </div>
     {% endfor %}
 {% endblock %}

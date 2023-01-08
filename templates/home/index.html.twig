@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DefaultController!{% endblock %}
+{% block title %}Leboncoin Annonce{% endblock %}
 
 {% block main %}
-<div class="example-wrapper">
-    <h2>Voici les différentes annonces</h2>
+    <h1>Voici les différentes annonces</h1>
     <ul>
         {% for annonce in annonces %}
             <li>
@@ -17,8 +16,10 @@
                 {% if annonce.updated_at %}
                     <p>{{ annonce.updated_at }}</p>
                 {% endif %}
-                <a href="{{ path('annonce_item', {'id': annonce.id}) }}">Voir l'annonce</a>
+                <div class="button_container">
+                    <a class="button_voir" href="{{ path('annonce_item', {'id': annonce.id}) }}">Voir l'annonce</a>
+                </div>
             </li>
         {% endfor %}
-</div>
+    </ul>
 {% endblock %}
